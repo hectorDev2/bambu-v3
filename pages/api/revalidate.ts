@@ -20,7 +20,7 @@
  * 14. Redeploy with `npx vercel --prod` to apply the new environment variable
  */
 
-import { apiVersion, dataset, projectId } from 'lib/sanity.api'
+import { apiVersion, dataset, projectId } from 'src/lib/sanity.api'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createClient, groq, type SanityClient } from 'next-sanity'
 import { type ParseBody, parseBody } from 'next-sanity/webhook'
@@ -60,7 +60,7 @@ export default async function revalidate(
   }
 }
 
-type StaleRoute = '/' | `/posts/${string}`
+type StaleRoute = '/' | `/rooms/${string}`
 
 async function queryStaleRoutes(
   body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>
@@ -73,7 +73,7 @@ async function queryStaleRoutes(
     if (!exists) {
       let staleRoutes: StaleRoute[] = ['/']
       if ((body.slug as any)?.current) {
-        staleRoutes.push(`/posts/${(body.slug as any).current}`)
+        staleRoutes.push(`/rooms/${(body.slug as any).current}`)
       }
       // Assume that the post document was deleted. Query the datetime used to sort "More stories" to determine if the post was in the list.
       const moreStories = await client.fetch(
@@ -82,7 +82,7 @@ async function queryStaleRoutes(
         )`,
         { date: body.date }
       )
-      // If there's less than 3 posts with a newer date, we need to revalidate everything
+      // If there's less than 3 rooms with a newer date, we need to revalidate everything
       if (moreStories < 3) {
         return [...new Set([...(await queryAllRoutes(client)), ...staleRoutes])]
       }
@@ -109,7 +109,7 @@ async function _queryAllRoutes(client: SanityClient): Promise<string[]> {
 async function queryAllRoutes(client: SanityClient): Promise<StaleRoute[]> {
   const slugs = await _queryAllRoutes(client)
 
-  return ['/', ...slugs.map((slug) => `/posts/${slug}` as StaleRoute)]
+  return ['/', ...slugs.map((slug) => `/rooms/${slug}` as StaleRoute)]
 }
 
 async function mergeWithMoreStories(
@@ -140,7 +140,7 @@ async function queryStaleAuthorRoutes(
 
   if (slugs.length > 0) {
     slugs = await mergeWithMoreStories(client, slugs)
-    return ['/', ...slugs.map((slug) => `/posts/${slug}`)]
+    return ['/', ...slugs.map((slug) => `/rooms/${slug}`)]
   }
 
   return []
@@ -157,5 +157,5 @@ async function queryStalePostRoutes(
 
   slugs = await mergeWithMoreStories(client, slugs)
 
-  return ['/', ...slugs.map((slug) => `/posts/${slug}`)]
+  return ['/', ...slugs.map((slug) => `/rooms/${slug}`)]
 }
