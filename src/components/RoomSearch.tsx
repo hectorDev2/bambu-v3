@@ -1,5 +1,7 @@
 'use client'
-import { useState } from 'react'
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import SortRoundedIcon from '@mui/icons-material/SortRounded'
 import {
   Box,
   Button,
@@ -8,9 +10,7 @@ import {
   Stack,
   TextField,
 } from '@mui/material'
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import SortRoundedIcon from '@mui/icons-material/SortRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import { useState } from 'react'
 
 import { SearchFilters } from './SearchFilters'
 

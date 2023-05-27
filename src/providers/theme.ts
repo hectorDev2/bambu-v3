@@ -23,7 +23,7 @@ export const theme: CustomThemeOptions = createTheme({
     },
     palette: {
         primary: {
-            main: '#8E24AA',
+            main: '#2a9d8f',
         },
         secondary: {
             main: '#FBC02D',

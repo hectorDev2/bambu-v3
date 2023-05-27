@@ -1,9 +1,9 @@
-import { SearchFilters } from 'src/components/RoomFilter'
-import RoomsFilter from 'pages/rooms/RoomsFilter'
+import RoomsFilter from 'pages/rooms/components/RoomsFilter'
 import RoomsList from 'pages/rooms/RoomsList'
 import React from 'react'
-import rooms from 'src/schemas/rooms'
+import { SearchFilters } from 'src/components/RoomFilter'
 import { RoomSearch } from 'src/components/RoomSearch'
+import rooms from 'src/schemas/rooms'
 
 interface StateSelector {
   rooms: {
@@ -18,8 +18,8 @@ const RoomsContainer = () => {
   return (
     <>
       <RoomsFilter rooms={rooms} />
-      <RoomsList rooms={rooms} />
-      <RoomSearch />
+      <RoomsList />
+      {/* <RoomSearch /> */}
     </>
   )
 }

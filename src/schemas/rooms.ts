@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'room',
-  title: 'room',
+  title: 'Room',
   type: 'document',
   fields: [
     defineField({
@@ -82,9 +82,7 @@ export default defineType({
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
-      options: {
-        hotspot: true
-      },
+      
       fields: [
         {
           name: 'alt',

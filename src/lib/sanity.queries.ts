@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity'
 
-const postFields = groq`
+const roomFields = groq`
   _id,
   title,
   slug,
@@ -12,6 +12,7 @@ const postFields = groq`
   featured,
   description,
   extras,
+  mainImage,
   images
 
 `
@@ -20,45 +21,42 @@ export const settingsQuery = groq`*[_type == "settings"][0]`
 
 export const indexQuery = groq`
 *[_type == "room"] | order(date desc, _updatedAt desc) {
-  ${postFields}
+  ${roomFields}
 }`
 
-export const postAndMoreStoriesQuery = groq`
+export const roomAndMoreStoriesQuery = groq`
 {
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
+  "room": *[_type == "room" && slug.current == $slug] | order(_updatedAt desc) [0] {
     content,
-    ${postFields}
+    ${roomFields}
   },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+  "moreRooms": *[_type == "room" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
     content,
-    ${postFields}
+    ${roomFields}
   }
 }`
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
+export const roomSlugsQuery = groq`
+*[_type == "room" && defined(slug.current)][].slug.current
 `
 
-export const postBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
-  ${postFields}
+export const roomBySlugQuery = groq`
+*[_type == "room" && slug.current == $slug][0] {
+  ${roomFields}
 }
 `
 
-export interface Author {
-  name?: string
-  picture?: any
-}
 
-export interface Post {
+export interface Room {
   _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt?: string
-  author?: Author
-  slug?: string
-  content?: any
+  title: string
+  slug: any
+  price?: number
+  capacity?: number
+  pet:boolean
+  breakfast:boolean
+  description:string
+  size:string
 }
 
 export interface Settings {

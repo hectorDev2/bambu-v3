@@ -1,19 +1,20 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import PostPage from 'src/components/PostPage'
-import {
-  getAllPostsSlugs,
-  getPostAndMoreStories,
-  getSettings,
-} from 'src/lib/sanity.client'
-import { Post, Settings } from 'src/lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
+import RoomPage from 'src/components/RoomPage'
+import {
+  getAllRoomSlugs,
+  getRoomAndMoreStories,
+  getSettings,
+} from 'src/lib/sanity.client'
+import { Room, Settings } from 'src/lib/sanity.queries'
 
-const PreviewPostPage = lazy(() => import('src/components/PreviewPostPage'))
+const PreviewRoomPage = lazy(
+  () => import('../../src/components/PreviewRoomPage')
+)
 
 interface PageProps {
-  post: Post
-  morePosts: Post[]
+  room: Room
   settings?: Settings
   preview: boolean
   token: string | null
@@ -28,32 +29,19 @@ interface PreviewData {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, preview, token } = props
+  const { settings, room, preview, token } = props
 
   if (preview) {
     return (
       <PreviewSuspense
-        fallback={
-          <PostPage
-            loading
-            preview
-            post={post}
-            morePosts={morePosts}
-            settings={settings}
-          />
-        }
+        fallback={<RoomPage loading preview room={room} settings={settings} />}
       >
-        <PreviewPostPage
-          token={token}
-          post={post}
-          morePosts={morePosts}
-          settings={settings}
-        />
+        <PreviewRoomPage token={token} room={room} settings={settings} />
       </PreviewSuspense>
     )
   }
 
-  return <PostPage post={post} morePosts={morePosts} settings={settings} />
+  return <RoomPage room={room} settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -61,16 +49,15 @@ export const getStaticProps: GetStaticProps<
   Query,
   PreviewData
 > = async (ctx) => {
-  const { preview = false, previewData = {}, params = {} } = ctx
-
-  const token = previewData.token
-
-  const [settings, { post, morePosts }] = await Promise.all([
+  const { preview = true, previewData = {}, params = {} } = ctx
+  const [settings, { room }] = await Promise.all([
     getSettings(),
-    getPostAndMoreStories(params.slug, token),
+    getRoomAndMoreStories(params.slug),
   ])
 
-  if (!post) {
+  if (!room) {
+    console.log('static props')
+
     return {
       notFound: true,
     }
@@ -78,8 +65,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      post,
-      morePosts,
+      room,
       settings,
       preview,
       token: previewData.token ?? null,
@@ -88,8 +74,7 @@ export const getStaticProps: GetStaticProps<
 }
 
 export const getStaticPaths = async () => {
-  const slugs = await getAllPostsSlugs()
-
+  const slugs = await getAllRoomSlugs()
   return {
     paths: slugs?.map(({ slug }) => `/rooms/${slug}`) || [],
     fallback: 'blocking',

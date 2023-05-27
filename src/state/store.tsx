@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import RoomSlice from 'pages/rooms/RoomSlice'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    roomsState: RoomSlice,
+  },
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

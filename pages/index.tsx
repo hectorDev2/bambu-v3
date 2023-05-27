@@ -1,9 +1,12 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import IndexPage from 'src/components/IndexPage'
-import { getAllPosts, getSettings } from 'src/lib/sanity.client'
-import { Post, Settings } from 'src/lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import IndexPage from 'src/components/IndexPage'
+import { getAllRooms, getSettings } from 'src/lib/sanity.client'
+import { Settings } from 'src/lib/sanity.queries'
+import { initializeData } from './rooms/RoomSlice'
+import * as demo from 'src/lib/demo.data'
 
 const PreviewIndexPage = lazy(() => import('src/components/PreviewIndexPage'))
 
@@ -24,6 +27,15 @@ interface PreviewData {
 
 export default function Page(props: PageProps) {
   const { rooms, settings, preview, token } = props
+  const dispatch = useDispatch()
+
+  const { title = demo.title, description = demo.description } = settings || {}
+
+  const payload: any = rooms
+
+  useEffect(() => {
+    dispatch(initializeData(payload))
+  }, [dispatch, payload])
 
   if (preview) {
     return (
@@ -49,9 +61,8 @@ export const getStaticProps: GetStaticProps<
 
   const [settings, rooms = []] = await Promise.all([
     getSettings(),
-    getAllPosts(),
+    getAllRooms(),
   ])
-  console.log(rooms[0]?.images[0], 'rooms')
 
   return {
     props: {

@@ -1,17 +1,29 @@
 import Image from 'next/image'
 import React from 'react'
+import { urlForImage } from 'src/lib/sanity.image'
 
 import { Button } from './buttons/ButtonFeatures'
 interface Room {
-  room: any
+  room: {
+    name
+    images
+    price
+    slug
+  }
 }
 
 const Room = ({ room }: Room) => {
   const { name, images, price, slug } = room
+
   return (
     <article className="room">
       <div className="img-container">
-        <Image src={images[0]} alt="single room" />
+        <Image
+          width={200}
+          height={100}
+          src={`${urlForImage(images[0]).width(500).url()}`}
+          alt="single room"
+        />
         <div className="price-top">
           <h6>${price}</h6>
           <p>por noche</p>
@@ -19,7 +31,7 @@ const Room = ({ room }: Room) => {
         <Button
           className="room-link"
           title="caracteristicas"
-          to={`/rooms/${slug}`}
+          route={`/rooms/${slug.current}`}
         />
       </div>
       <p className="room-info">{name}</p>

@@ -1,12 +1,12 @@
 import { apiVersion, dataset, projectId, useCdn } from 'src/lib/sanity.api'
 import {
   indexQuery,
-  type Post,
-  postAndMoreStoriesQuery,
-  postBySlugQuery,
-  postSlugsQuery,
+  Room,
   type Settings,
   settingsQuery,
+  roomSlugsQuery,
+  roomBySlugQuery,
+  roomAndMoreStoriesQuery,
 } from 'src/lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
@@ -24,41 +24,46 @@ export async function getSettings(): Promise<Settings> {
   return {}
 }
 
-export async function getAllPosts(): Promise<any[]> {
+export async function getAllRooms(): Promise<any[]> {
   if (client) {
     return (await client.fetch(indexQuery)) || []
   }
   return []
 }
 
-export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
+export async function getAllRoomSlugs(): Promise<Pick<any, 'slug'>[]> {
   if (client) {
-    const slugs = (await client.fetch<string[]>(postSlugsQuery)) || []
+    const slugs = (await client.fetch<string[]>(roomSlugsQuery)) || []
+    
     return slugs.map((slug) => ({ slug }))
   }
   return []
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
+export async function getRoomBySlug(slug: string): Promise<any> {
+  
   if (client) {
-    return (await client.fetch(postBySlugQuery, { slug })) || ({} as any)
+    console.log(client,'client');
+    
+    return (await client.fetch(roomBySlugQuery, { slug })) || ({} as any)
   }
   return {} as any
 }
 
-export async function getPostAndMoreStories(
+export async function getRoomAndMoreStories(
   slug: string,
-  token?: string | null
-): Promise<{ post: Post; morePosts: Post[] }> {
+): Promise<{ room: Room; moreRooms: Room[] }> {
   if (projectId) {
+    
     const client = createClient({
       projectId,
       dataset,
       apiVersion,
       useCdn,
-      token: token || undefined,
     })
-    return await client.fetch(postAndMoreStoriesQuery, { slug })
+    
+    return await client.fetch(roomAndMoreStoriesQuery, { slug })
   }
-  return { post: null, morePosts: [] }
+  
+  return { room: null, moreRooms: [] }
 }

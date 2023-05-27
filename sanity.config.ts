@@ -14,7 +14,7 @@ import rooms from 'src/schemas/rooms'
 import settingsType from 'src/schemas/settings'
 
 const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Bambu hostel'
 
 export default defineConfig({
   basePath: '/studio',
