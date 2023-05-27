@@ -1,12 +1,11 @@
 'use client'
 import { createSlice } from '@reduxjs/toolkit'
-import { formatData } from 'src/utils/formatData'
 
 // import { products } from '@/app/globalRedux/data'
 // import { formatData } from '@/app/utils/formatData'
-import { RoomObject } from '../../interfaces'
-import { RoomSelect } from '../../interfaces/roomSelect'
-const products=[]
+import { RoomObject } from '../../src/interfaces'
+import { RoomSelect } from '../../src/interfaces/roomSelect'
+const rooms=[]
 
 export interface InitialState {
   roomsList: RoomObject[]
@@ -25,7 +24,7 @@ export interface InitialState {
   }
   featuredRooms?: any[]
 }
-const formatRooms = formatData(products)
+const formatRooms = rooms
 let featuredRooms = formatRooms.filter(
   (room: RoomSelect) => room.featured === true
 )
@@ -53,12 +52,12 @@ export const roomSlice = createSlice({
   name: 'roomState',
   initialState: initialState,
   reducers: {
-    setFilter: ({ filters }: any, { payload }: any) => {
+    setFilter: ({ filters }: InitialState, { payload }: any) => {
       const { name, value } = payload
       filters[name] = value
     },
 
-    filterRooms: ({ filters }: any) => {
+    filterRooms: ({ filters }: InitialState) => {
       const rooms = initialState.roomsList
 
       let { type, capacity, minSize, maxSize, breakfast, pets } = filters
@@ -97,10 +96,14 @@ export const roomSlice = createSlice({
 
       // change state
       return { filters, roomsList: tempRooms }
+    },
+    initializeData: (state: InitialState, { payload }: any):any => {
+
+      return {...state,roomsList: payload}
     }
   }
 })
 
-export const { setFilter, filterRooms } = roomSlice.actions
+export const { setFilter, filterRooms,initializeData } = roomSlice.actions
 
 export default roomSlice.reducer

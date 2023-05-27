@@ -3,15 +3,17 @@ import React from 'react'
 
 export const Button = ({
   title,
-  to,
+  slug = '',
+  route = '/',
   className,
 }: {
   title: string
-  to: string
+  slug?: string
+  route?
   className?: string
 }) => {
   return (
-    <Link className={className} href={to}>
+    <Link className={className} href={route}>
       <button className="button"> {title}</button>
     </Link>
   )

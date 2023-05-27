@@ -5,11 +5,11 @@ import {
   projectId,
   useCdn,
 } from 'src/lib/sanity.api'
-import { postBySlugQuery } from 'src/lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
 import { getSecret } from 'src/plugins/productionUrl/utils'
+import { roomBySlugQuery } from 'src/lib/sanity.queries'
 
 // res.setPreviewData only exists in the nodejs runtime, setting the config here allows changing the global runtime
 // option in next.config.mjs without breaking preview mode
@@ -18,7 +18,7 @@ export const config: PageConfig = { runtime: 'nodejs' }
 function redirectToPreview(
   res: NextApiResponse<string | void>,
   previewData: { token?: string },
-  Location: '/' | `/posts/${string}`
+  Location: '/' | `/rooms/${string}`
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
@@ -73,16 +73,16 @@ export default async function preview(
     token:
       process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
   })
-  const post = await client.fetch(postBySlugQuery, {
+  const rooms = await client.fetch(roomBySlugQuery, {
     slug: req.query.slug,
   })
 
   // If the slug doesn't exist prevent preview mode from being enabled
-  if (!post) {
+  if (!rooms) {
     return res.status(401).send('Invalid slug')
   }
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, previewData, `/posts/${post.slug}`)
+  redirectToPreview(res, previewData, `/rooms/${rooms.slug}`)
 }

@@ -43,7 +43,7 @@ export interface RoomsObject {
 }
 
 export interface StateSelector {
-  rooms: {
+  roomsState: {
     roomsList: []
     filters: {
       type: string

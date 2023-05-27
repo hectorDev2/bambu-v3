@@ -1,6 +1,5 @@
 import AdbIcon from '@mui/icons-material/Adb'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Link } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -12,16 +11,15 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import Image from 'next/image'
+import logo from '../../public/assets/images/logo.svg'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 const pages = [
   { name: 'Home', route: '/' },
-  { name: 'Explorar', route: 'pages/explore' },
-  { name: 'Nosotros', route: 'pages/about' },
-]
-const settings = [
-  { name: 'Perfil', route: 'pages/users' },
-  { name: 'Logout', route: 'pages/auth' },
+  { name: 'Cuartos', route: '/rooms' },
+  { name: 'Nosotros', route: '/about' },
 ]
 
 export const Navbar = () => {
@@ -53,13 +51,15 @@ export const Navbar = () => {
       {domLoaded && (
         <AppBar position="sticky" sx={{ bgcolor: 'var(--green-aqua)' }}>
           <Container maxWidth="xl">
-            <Toolbar disableGutters>
+            <Toolbar
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
+              disableGutters
+            >
               <Link href={'/'} style={{ display: 'flex' }}>
                 <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                 <Typography
                   variant="h6"
                   noWrap
-                  component="a"
                   sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },
@@ -70,11 +70,24 @@ export const Navbar = () => {
                     textDecoration: 'none',
                   }}
                 >
-                  LOGO
+                  <Image
+                    src={logo}
+                    alt="logo bambu hostel"
+                    width={100}
+                    height={100}
+                  />
                 </Typography>
               </Link>
 
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: {
+                    xs: 'flex',
+                    md: 'none',
+                  },
+                }}
+              >
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -83,6 +96,12 @@ export const Navbar = () => {
                   onClick={handleOpenNavMenu}
                   color="inherit"
                 >
+                  <Image
+                    src={logo}
+                    alt="logo bambu hostel"
+                    width={100}
+                    height={100}
+                  />
                   <MenuIcon />
                 </IconButton>
                 <Menu
@@ -104,11 +123,11 @@ export const Navbar = () => {
                   }}
                 >
                   {pages.map(({ name, route }) => (
-                    <Link href={route} key={name}>
-                      <MenuItem key={name} onClick={handleCloseNavMenu}>
+                    <MenuItem key={name} onClick={handleCloseNavMenu}>
+                      <Link href={route} key={name}>
                         <Typography textAlign="center">{name}</Typography>
-                      </MenuItem>
-                    </Link>
+                      </Link>
+                    </MenuItem>
                   ))}
                 </Menu>
               </Box>
@@ -116,8 +135,6 @@ export const Navbar = () => {
               <Typography
                 variant="h5"
                 noWrap
-                component="a"
-                href=""
                 sx={{
                   mr: 2,
                   display: { xs: 'flex', md: 'none' },
@@ -129,7 +146,13 @@ export const Navbar = () => {
                   textDecoration: 'none',
                 }}
               ></Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  justifyContent: 'end',
+                }}
+              >
                 {pages.map(({ name, route }) => (
                   <Link href={route} key={name}>
                     <Button
@@ -141,41 +164,6 @@ export const Navbar = () => {
                     </Button>
                   </Link>
                 ))}
-              </Box>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map(({ name, route }) => (
-                    <Link
-                      key={name}
-                      href={`${name !== 'Perfil' ? route : `${route}/1`}`}
-                    >
-                      <MenuItem key={route} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{name}</Typography>
-                      </MenuItem>
-                    </Link>
-                  ))}
-                </Menu>
               </Box>
             </Toolbar>
           </Container>

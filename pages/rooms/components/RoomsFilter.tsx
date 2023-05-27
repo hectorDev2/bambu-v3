@@ -3,10 +3,10 @@ import { FormControl, InputLabel } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Title from '../../src/components/Title'
-import { StateSelector } from '../../interfaces'
-import { SelectMul } from './components/Select'
-import { filterRooms, initialState, setFilter } from './RoomSlice'
+import Title from '../../../src/components/Title'
+import { StateSelector } from '../../../src/interfaces'
+import { SelectMul } from './Select'
+import { filterRooms, initialState, setFilter } from '../RoomSlice'
 
 interface IPropsRoomsFilter {
   rooms: any[]
