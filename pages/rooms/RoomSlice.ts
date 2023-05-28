@@ -1,8 +1,6 @@
 'use client'
 import { createSlice } from '@reduxjs/toolkit'
 
-// import { products } from '@/app/globalRedux/data'
-// import { formatData } from '@/app/utils/formatData'
 import { RoomObject } from '../../src/interfaces'
 import { RoomSelect } from '../../src/interfaces/roomSelect'
 const rooms=[]
@@ -16,20 +14,14 @@ export interface InitialState {
     capacity: number
     pets: boolean
 
-    price: number
-    minPrice: number
-    maxPrice: number
-    minSize: number
-    maxSize: number
   }
   featuredRooms?: any[]
 }
 const formatRooms = rooms
+
 let featuredRooms = formatRooms.filter(
   (room: RoomSelect) => room.featured === true
 )
-let maxPrice = Math.max(...formatRooms.map((item: RoomSelect) => item.price))
-let maxSize = Math.max(...formatRooms.map((item: RoomSelect) => item.size))
 
 export const initialState: InitialState = {
   roomsList: formatRooms,
@@ -39,11 +31,6 @@ export const initialState: InitialState = {
     breakfast: false,
     capacity: 1,
     pets: false,
-    price: maxPrice,
-    minPrice: 0,
-    maxPrice,
-    minSize: 0,
-    maxSize
   },
   featuredRooms
 }
@@ -52,15 +39,14 @@ export const roomSlice = createSlice({
   name: 'roomState',
   initialState: initialState,
   reducers: {
-    setFilter: ({ filters }: InitialState, { payload }: any) => {
+    setFilter: ({ filters}: InitialState, { payload }: any) => {
       const { name, value } = payload
       filters[name] = value
     },
 
-    filterRooms: ({ filters }: InitialState) => {
-      const rooms = initialState.roomsList
-
-      let { type, capacity, minSize, maxSize, breakfast, pets } = filters
+    filterRooms: ({ filters,roomsList }: InitialState) => {
+      const rooms = roomsList
+      let { type, capacity, breakfast, pets } = filters
       // all the rooms
 
       let tempRooms = [...rooms]
@@ -70,8 +56,10 @@ export const roomSlice = createSlice({
 
       // filter by type
       if (type !== 'all') {
+        console.log(tempRooms,'tempRooms before' );
         tempRooms = tempRooms.filter((room: any) => room.type === type)
-        console.log(tempRooms, 'rooms')
+        console.log(tempRooms,'tempRooms after');
+        
       }
 
       // // filter by capacity
@@ -79,10 +67,6 @@ export const roomSlice = createSlice({
         tempRooms = tempRooms.filter((room: any) => room.capacity >= capacity)
       }
 
-      // // filter by size
-      tempRooms = tempRooms.filter(
-        (room: any) => room.size >= minSize && room.size <= maxSize
-      )
 
       // // filter by breakfast
       if (breakfast) {

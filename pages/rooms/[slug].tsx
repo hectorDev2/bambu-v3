@@ -56,8 +56,6 @@ export const getStaticProps: GetStaticProps<
   ])
 
   if (!room) {
-    console.log('static props')
-
     return {
       notFound: true,
     }

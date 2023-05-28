@@ -8,8 +8,8 @@ interface CoverProps {
 
 const Banner = ({ subtitle, title, children }: CoverProps) => {
   return (
-    <div className='banner'>
-      <h1>{title}</h1>
+    <div className="banner">
+      <h1 style={{ color: 'white' }}>{title}</h1>
       <p>{subtitle}</p>
       {children}
     </div>

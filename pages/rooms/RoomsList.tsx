@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { StateSelector } from 'src/interfaces'
 
@@ -8,16 +8,6 @@ const RoomsList = () => {
   const rooms = useSelector(
     ({ roomsState }: StateSelector) => roomsState.roomsList
   )
-
-  console.log(rooms, 'rooms in roomsList')
-
-  if (rooms?.length === 0) {
-    return (
-      <div className="empty-search">
-        <h3>unfortunately no rooms matched your search parameters</h3>
-      </div>
-    )
-  }
 
   return (
     <section className="roomslist">

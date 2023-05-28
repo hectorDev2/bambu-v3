@@ -29,8 +29,6 @@ export default function Page(props: PageProps) {
   const { rooms, settings, preview, token } = props
   const dispatch = useDispatch()
 
-  const { title = demo.title, description = demo.description } = settings || {}
-
   const payload: any = rooms
 
   useEffect(() => {
