@@ -23,10 +23,10 @@ export const theme: CustomThemeOptions = createTheme({
     },
     palette: {
         primary: {
-            main: '#2a9d8f',
+            main: '#193A4A',
         },
         secondary: {
-            main: '#FBC02D',
+            main: '#DD5470',
         },
         background: {
             default: '#eeeeee',

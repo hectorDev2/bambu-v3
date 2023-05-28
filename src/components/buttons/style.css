@@ -1,5 +1,5 @@
 .btn-cssbuttons {
- --btn-color: var(--green-weight);
+ --btn-color: var(--secondary-color);
  position: relative;
  padding: 16px 32px;
  font-family: Roboto, sans-serif;
@@ -7,7 +7,7 @@
  font-size: 16px;
  line-height: 1;
  color: white;
- background: var(--green-weight);
+ background: var(--secondary-color);
  border: none;
  outline: none;
  overflow: hidden;
@@ -103,7 +103,7 @@
  transition-delay: 0.25s;
 }
 .button {
- --color: var(--green-aqua);
+ --color: var(--primary-color);
  padding: 0.8em 1.7em;
  background-color: transparent;
  border-radius: .3em;

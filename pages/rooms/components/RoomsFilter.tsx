@@ -21,17 +21,23 @@ const getUnique = (items: any[], value: string): any => {
   return allRoomTypes
 }
 
-const RoomsFilter = ({ rooms }: any) => {
-  const filters: any = {}
+const RoomsFilter = () => {
+  const rooms = useSelector(
+    ({ roomsState }: StateSelector) => roomsState.roomsList
+  )
+  const filters = useSelector(
+    ({ roomsState }: StateSelector) => roomsState.filters
+  )
+
   const { type, capacity, maxPrice, minPrice, price, minSize, maxSize } =
     filters
 
   const dispatch = useDispatch()
 
-  let types = getUnique(initialState.roomsList, 'type')
+  let types = getUnique(rooms, 'type')
   types = ['all', ...types]
 
-  let people = getUnique(initialState.roomsList, 'capacity')
+  let people = getUnique(rooms, 'capacity')
 
   const handleChange = (e: any) => {
     console.log('readys', e.target)
@@ -55,12 +61,12 @@ const RoomsFilter = ({ rooms }: any) => {
     dispatch(setFilter(payload as any))
   }
 
-  // useEffect(() => {
-  //   dispatch(filterRooms())
-  // }, [filters])
+  useEffect(() => {
+    dispatch(filterRooms())
+  }, [filters])
   return (
     <section className="filter-container">
-      <Title title="search rooms" />
+      <Title title="Buscador de habitaciones" />
       <form className="filter-form">
         <div className="container-select">
           <SelectMul

@@ -9,17 +9,16 @@ import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
-import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
-import logo from '../../public/assets/images/logo.svg'
+import logo from '../../public/assets/images/logo.png'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 const pages = [
   { name: 'Home', route: '/' },
   { name: 'Cuartos', route: '/rooms' },
-  { name: 'Nosotros', route: '/about' },
+  { name: 'Contacto', route: '/contact' },
 ]
 
 export const Navbar = () => {
@@ -30,16 +29,9 @@ export const Navbar = () => {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
-  }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
-  }
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
   }
 
   useEffect(() => {
@@ -49,7 +41,7 @@ export const Navbar = () => {
   return (
     <>
       {domLoaded && (
-        <AppBar position="sticky" sx={{ bgcolor: 'var(--green-aqua)' }}>
+        <AppBar position="sticky" sx={{ bgcolor: 'var(--primary-color)' }}>
           <Container maxWidth="xl">
             <Toolbar
               sx={{ display: 'flex', justifyContent: 'space-between' }}

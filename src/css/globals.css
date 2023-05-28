@@ -5,12 +5,8 @@
 }
 
 :root {
-  --primaryColor: #af9a7d;
-  --mainWhite: #fff;
-  --offWhite: #f7f7f7;
-
-  --green-aqua: #2a9d8f;
-  --green-weight: #264653;
+  --primary-color: #DD5470;
+  --secondary-color: #193A4A;
 
 
   --mainBlack: #222;
@@ -31,7 +27,7 @@ body {
 }
 
 svg {
-  color: var(--green-aqua)
+  color: var(--primary-color)
 }
 
 h1 {
@@ -111,7 +107,7 @@ h6 {
   left: 0;
   width: 100%;
   padding: 0.25rem 2rem;
-  background: var(--green-aqua);
+  background: var(--primary-color);
   z-index: 1;
 }
 
@@ -154,7 +150,7 @@ h6 {
 }
 
 .nav-links a:hover {
-  color: var(--green-weight);
+  color: var(--secondary-color);
 }
 
 .show-nav {
@@ -307,8 +303,9 @@ h6 {
 
 .services p {
   width: 80%;
-  margin: 0 auto;
 }
+
+
 
 @media screen and (min-width: 992px) {
   .services-center {
@@ -391,8 +388,8 @@ h6 {
   position: absolute;
   top: 0;
   left: 0;
-  background: var(--green-aqua);
-  color: var(--mainWhite);
+  background: var(--primary-color);
+  color: #fff;
   padding: 0.3rem 0.6rem 0.5rem;
   border-radius: 1rem 0 0 0;
   font-size: 0.5rem;
@@ -433,7 +430,7 @@ h6 {
 }
 
 .room-info {
-  background: var(--green-weight);
+  background: var(--secondary-color);
   text-transform: capitalize;
   padding: 0.5rem 0;
   text-align: center;
@@ -642,7 +639,7 @@ h6 {
 }
 
 .footer {
-  background-color: black;
+  background-color: #193A4A;
   color: #fefefe;
   width: 100%;
   bottom: 0;
@@ -661,8 +658,7 @@ h6 {
 
 .footer .content {
   display: flex;
-  justify-content: space-evenly;
-  margin: 1.5rem;
+  justify-content: space-between;
 }
 
 .footer .content p {
@@ -719,7 +715,7 @@ footer {
 /* buttons */
 
 .btn-cssbuttons {
-  --btn-color: var(--green-weight);
+  --btn-color: var(--secondary-color);
   position: relative;
   padding: 16px 32px;
   font-family: Roboto, sans-serif;
@@ -727,7 +723,7 @@ footer {
   font-size: 16px;
   line-height: 1;
   color: white;
-  background: var(--green-weight);
+  background: var(--secondary-color);
   border: none;
   outline: none;
   overflow: hidden;
@@ -824,7 +820,7 @@ footer {
 }
 
 .button {
-  --color: var(--green-aqua);
+  --color: var(--primary-color);
   padding: 0.8em 1.7em;
   background-color: transparent;
   border-radius: .3em;
@@ -894,7 +890,7 @@ footer {
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 .background{
-  background: var(--green-aqua);
+  background: var(--primary-color);
   width:100%;
   position: absolute;
   top: 0;
