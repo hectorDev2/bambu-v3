@@ -8,7 +8,7 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string'
+      type: 'string',
     }),
     defineField({
       name: 'slug',
@@ -16,8 +16,8 @@ export default defineType({
       type: 'slug',
       options: {
         source: 'title',
-        maxLength: 96
-      }
+        maxLength: 96,
+      },
     }),
     defineField({
       name: 'type',
@@ -28,41 +28,41 @@ export default defineType({
         list: [
           { title: 'single', value: 'single' },
           { title: 'double', value: 'family' },
-          { title: 'presidencial', value: 'presidencial' }
-        ]
-      }
+          { title: 'presidencial', value: 'presidencial' },
+        ],
+      },
     }),
 
     defineField({
       name: 'price',
       title: 'Price',
-      type: 'number'
+      type: 'number',
     }),
-     defineField({
+    defineField({
       name: 'capacity',
       title: 'Capacity',
-      type: 'number'
+      type: 'number',
     }),
 
     defineField({
       name: 'pet',
       title: 'Pets',
-      type: 'boolean'
+      type: 'boolean',
     }),
     defineField({
       name: 'breakfast',
       title: 'Breakfast',
-      type: 'boolean'
+      type: 'boolean',
     }),
     defineField({
       name: 'featured',
       title: 'featured',
-      type: 'boolean'
+      type: 'boolean',
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string'
+      type: 'string',
     }),
 
     defineField({
@@ -74,22 +74,22 @@ export default defineType({
         list: [
           { title: 'small', value: 'small' },
           { title: 'medium', value: 'medium' },
-          { title: 'large', value: 'large' }
-        ]
-      }
+          { title: 'large', value: 'large' },
+        ],
+      },
     }),
-        defineField({
+    defineField({
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
-      
+
       fields: [
         {
           name: 'alt',
           type: 'string',
-          title: 'Alternative Text'
-        }
-      ]
+          title: 'Alternative Text',
+        },
+      ],
     }),
     defineField({
       name: 'extras',
@@ -99,9 +99,9 @@ export default defineType({
         defineArrayMember({
           type: 'object',
           name: 'extra',
-          fields: [{ type: 'string', name: 'extra' }]
-        })
-      ]
+          fields: [{ type: 'string', name: 'extra' }],
+        }),
+      ],
     }),
     defineField({
       type: 'array',
@@ -109,19 +109,19 @@ export default defineType({
       title: 'Gallery Image',
       of: [{ type: 'image' }],
       options: {
-        layout: 'grid'
-      }
-    })
+        layout: 'grid',
+      },
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       author: 'author.name',
-      media: 'mainImage'
+      media: 'mainImage',
     },
-    prepare (selection) {
+    prepare(selection) {
       const { author } = selection
       return { ...selection, subtitle: author && `by ${author}` }
-    }
-  }
+    },
+  },
 })

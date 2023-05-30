@@ -6,7 +6,6 @@ import IndexPage from 'src/components/IndexPage'
 import { getAllRooms, getSettings } from 'src/lib/sanity.client'
 import { Settings } from 'src/lib/sanity.queries'
 import { initializeData } from './rooms/RoomSlice'
-import * as demo from 'src/lib/demo.data'
 
 const PreviewIndexPage = lazy(() => import('src/components/PreviewIndexPage'))
 
@@ -26,7 +25,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { rooms, settings, preview, token } = props
+  const { rooms, settings, token } = props
   const dispatch = useDispatch()
 
   const payload: any = rooms
@@ -34,18 +33,6 @@ export default function Page(props: PageProps) {
   useEffect(() => {
     dispatch(initializeData(payload))
   }, [dispatch, payload])
-
-  if (preview) {
-    return (
-      <PreviewSuspense
-        fallback={
-          <IndexPage loading preview rooms={rooms} settings={settings} />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
-    )
-  }
 
   return <IndexPage rooms={rooms} settings={settings} />
 }
@@ -55,7 +42,7 @@ export const getStaticProps: GetStaticProps<
   Query,
   PreviewData
 > = async (ctx) => {
-  const { preview = false, previewData = {} } = ctx
+  const { preview = true, previewData = {} } = ctx
 
   const [settings, rooms = []] = await Promise.all([
     getSettings(),

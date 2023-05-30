@@ -46,17 +46,16 @@ export const roomBySlugQuery = groq`
 }
 `
 
-
 export interface Room {
   _id: string
   title: string
   slug: any
   price?: number
   capacity?: number
-  pet:boolean
-  breakfast:boolean
-  description:string
-  size:string
+  pet: boolean
+  breakfast: boolean
+  description: string
+  size: string
 }
 
 export interface Settings {

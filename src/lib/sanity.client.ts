@@ -34,36 +34,34 @@ export async function getAllRooms(): Promise<any[]> {
 export async function getAllRoomSlugs(): Promise<Pick<any, 'slug'>[]> {
   if (client) {
     const slugs = (await client.fetch<string[]>(roomSlugsQuery)) || []
-    
+
     return slugs.map((slug) => ({ slug }))
   }
   return []
 }
 
 export async function getRoomBySlug(slug: string): Promise<any> {
-  
   if (client) {
-    console.log(client,'client');
-    
+    console.log(client, 'client')
+
     return (await client.fetch(roomBySlugQuery, { slug })) || ({} as any)
   }
   return {} as any
 }
 
 export async function getRoomAndMoreStories(
-  slug: string,
+  slug: string
 ): Promise<{ room: Room; moreRooms: Room[] }> {
   if (projectId) {
-    
     const client = createClient({
       projectId,
       dataset,
       apiVersion,
       useCdn,
     })
-    
+
     return await client.fetch(roomAndMoreStoriesQuery, { slug })
   }
-  
+
   return { room: null, moreRooms: [] }
 }

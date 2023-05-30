@@ -1,6 +1,6 @@
-import Image from "next/image";
-import React from "react";
-import loadingGif from "../assets/images/gif/loading-arrow.gif";
+import Image from 'next/image'
+import React from 'react'
+import loadingGif from '../assets/images/gif/loading-arrow.gif'
 
 const Loading: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const Loading: React.FC = () => {
       <h4>rooms data loading....</h4>
       <Image src={loadingGif} alt="loading..." />
     </div>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

@@ -5,12 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Title from '../../../src/components/Title'
 import { StateSelector } from '../../../src/interfaces'
-import { SelectMul } from './Select'
+import SelectMul from './Select'
 import { filterRooms, initialState, setFilter } from '../RoomSlice'
-
-interface IPropsRoomsFilter {
-  rooms: any[]
-}
 
 // Get all unique items
 const getUnique = (items: any[], value: string): any => {

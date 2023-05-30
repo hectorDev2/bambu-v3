@@ -125,8 +125,6 @@ async function mergeWithMoreStories(
   return slugs
 }
 
-
-
 async function queryStalePostRoutes(
   client: SanityClient,
   id: string
